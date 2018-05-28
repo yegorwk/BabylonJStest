@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+		<title>BabylonJS</title>
+
+		<style>
+			html.body {
+			overflow: hidden;
+			width: 100%;
+			height: 100%;
+			margin: 0;
+			padding: 0;
+			}
+			
+			#renderCanvas {
+			width: 100%;
+			height: 100%;
+			touch-action: none;
+			}
+		</style>
+	
+	<script src="babylon.js"></script>
+
+	</head>
+	<body>
+		<canvas id="renderCanvas"></canvas>
+		<script>
+			// Инициализируем движок и указываем с каким элементом <canvas> ему работать
+				var canvas = document.querySelector("#renderCanvas");
+				var engine = new BABYLON.Engine(canvas, true);
+			// -------------------------------------------------------------
+			// Вызываем функцию создания сцены. И окрашиваем её в синий цвет
+			var createScene = function (){
+				var scene = new BABYLON.Scene(engine);
+				scene.clearColor = new BABYLON.Color3(0, 0, 1);
+			// Устанавливаем камеру
+			var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+				camera.setTarget(BABYLON.Vector3.Zero());
+				camera.attachControl(canvas, false);
+			// Освещение
+			var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+				light.intensity = 0.5;
+			// Сфера
+			var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+			sphere.position.y = 1;
+			// Площадка
+			var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
+			return scene;
+			};
+			// -------------------------------------------------------------
+			// Указываем фреймворку, что сцена готова и отправляем её на рендеринг
+			var scene = createScene();
+			engine.runRenderLoop(function (){
+				scene.render();
+			});
+			// Масшабируем сцены под любые разрешения
+			window.addEventListener("resize", function (){
+				engine.resize();
+			})
+		</script>
+	</body>
+</html>
