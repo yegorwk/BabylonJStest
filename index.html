@@ -26,14 +26,14 @@
 	<body>
 		<canvas id="renderCanvas"></canvas>
 		<script>
-			// Инициализируем движок и указываем с каким элементом <canvas> ему работать
+			// Инициализация движка
 				var canvas = document.querySelector("#renderCanvas");
 				var engine = new BABYLON.Engine(canvas, true);
 			// -------------------------------------------------------------
-			// Вызываем функцию создания сцены. И окрашиваем её в синий цвет
+			// Создание сцены
 			var createScene = function (){
 				var scene = new BABYLON.Scene(engine);
-				scene.clearColor = new BABYLON.Color3(0, 0, 1);
+				scene.clearColor = new BABYLON.Color3(0, 1, 1);
 			// Устанавливаем камеру
 			var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
 				camera.setTarget(BABYLON.Vector3.Zero());
