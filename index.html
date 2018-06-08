@@ -26,35 +26,36 @@
 	<body>
 		<canvas id="renderCanvas"></canvas>
 		<script>
-			// Инициализация движка
+			// Initialization engine
 				var canvas = document.querySelector("#renderCanvas");
 				var engine = new BABYLON.Engine(canvas, true);
-			// -------------------------------------------------------------
-			// Создание сцены
+			// Make scene
 			var createScene = function (){
 				var scene = new BABYLON.Scene(engine);
 				scene.clearColor = new BABYLON.Color3(0, 1, 1);
-			// Устанавливаем камеру
+			// Make camera
 			var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
 				camera.setTarget(BABYLON.Vector3.Zero());
 				camera.attachControl(canvas, false);
-			// Освещение
+			// Light
 			var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
 				light.intensity = 0.5;
-			// Сфера
+			// Main sphere
 			var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
 			sphere.position.y = 1;
-			// Площадка
+			//Box
+			var box = BABYLON.MeshBuilder.CreateBox("box", {}, scene);
+			// Ground for scene
 			var ground = BABYLON.Mesh.CreateGround("ground1", 6, 6, 2, scene);
 			return scene;
 			};
 			// -------------------------------------------------------------
-			// Указываем фреймворку, что сцена готова и отправляем её на рендеринг
+			// Scene to rendering
 			var scene = createScene();
 			engine.runRenderLoop(function (){
 				scene.render();
 			});
-			// Масшабируем сцены под любые разрешения
+			// Resize
 			window.addEventListener("resize", function (){
 				engine.resize();
 			})
